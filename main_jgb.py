@@ -1,6 +1,6 @@
 from constants_jgb import *
 from http import HTTPStatus
-from utility import get_page
+from utility import get_page_html
 
 
 class JgbAuctionInfo:
@@ -64,7 +64,7 @@ def get_auction_date(auction_page):
             elif idx == AUCTION_ANNOUNCEMENT:
                 if data.a:
                     announcement_link = data.a.get("href")
-                    _, announcement_page = get_page(announcement_link)
+                    _, announcement_page = get_page_html(announcement_link)
                     reopen_info = get_reopen_info(announcement_page)
 
             else:
@@ -89,7 +89,7 @@ if __name__ == "__main__":
     while any([bond.next_auction.year == 9999 for bond in jgb_auction_date.values()]):
         jgb_auction_url = f"https://www.mof.go.jp/english/policy/jgbs/auction/ca" \
                           f"lendar/{next_date.strftime('%y%m')}e.htm"
-        status, response = get_page(jgb_auction_url)
+        status, response = get_page_html(jgb_auction_url)
         if status != HTTPStatus.OK:
             break
 

@@ -1,5 +1,5 @@
 import re
-from datetime import datetime
+from constants import *
 
 AUCTION_DATE = 0
 ISSUE = 1
@@ -15,5 +15,3 @@ AUCTION_DATE_FORMAT = "%b %d, %Y"
 TD = "td"
 TR = "tr"
 ANNOUNCEMENT_TD_ATTRS = {"colspan": 2}
-
-TODAY_DATE = datetime.today()
