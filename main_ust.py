@@ -28,15 +28,20 @@ def format_ust_auction_df(ust_df):
 
     for column in column_name[2:]:
         table[column] = pd.to_datetime(table[column], format=DATE_FORMAT)
+        table[column] = table[column].dt.tz_localize('EST', ambiguous='infer')
     table = table[table[column_name[0]].str.contains('|'.join(SECURITY_FILTER_LIST))]
     table = table[table[column_name[-2]] >= TODAY_DATE]
 
     return table
 
 
-if __name__ == "__main__":
+def run():
     ust_schedule_url = "https://home.treasury.gov/system/files/221/Tentative-Auction-Schedule.pdf"
     status, response = get_page_df(ust_schedule_url)
 
-    auction_df = merge_pdf_auction(response)
+    return merge_pdf_auction(response)
+
+
+if __name__ == "__main__":
+    auction_df = run()
     print(auction_df)
