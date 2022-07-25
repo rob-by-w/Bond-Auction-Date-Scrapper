@@ -1,12 +1,13 @@
 from constants_jgb import *
 from http import HTTPStatus
 from utility import get_page_html
+from datetime import timezone, timedelta
 
 
 class JgbAuctionInfo:
     def __init__(self, tenor):
         self.tenor = tenor
-        self.next_auction = datetime(9999, 12, 31)
+        self.next_auction = datetime(9999, 12, 31).astimezone()
         self.bond_number = None
         self.announcement_link = None
         self.reopen_info = None
@@ -46,7 +47,8 @@ def get_auction_date(auction_page):
         for idx, data in enumerate(entry.find_all(TD)):
             if idx == AUCTION_DATE:
                 auction_date = data.string.replace(".", "")
-                auction_date = datetime.strptime(auction_date, AUCTION_DATE_FORMAT)
+                auction_date = datetime.strptime(auction_date, AUCTION_DATE_FORMAT).replace(
+                    tzinfo=timezone(timedelta(hours=9)))
 
             elif idx == ISSUE:
                 issue = re.sub(ISSUE_REGEX, "", data.text)
@@ -83,7 +85,7 @@ def get_reopen_info(announcement_page):
     return reopen_status
 
 
-if __name__ == "__main__":
+def run():
     next_date = TODAY_DATE.replace(day=1)
 
     while any([bond.next_auction.year == 9999 for bond in jgb_auction_date.values()]):
@@ -96,6 +98,12 @@ if __name__ == "__main__":
         get_auction_date(response)
 
         next_date = next_date.replace(month=next_date.month + 1)
+
+    return jgb_auction_date
+
+
+if __name__ == "__main__":
+    jgb_auction_date = run()
 
     for bond in jgb_auction_date.values():
         print(bond.__dict__)

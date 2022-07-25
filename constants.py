@@ -1,3 +1,3 @@
 from datetime import datetime
 
-TODAY_DATE = datetime.today()
+TODAY_DATE = datetime.today().astimezone()
