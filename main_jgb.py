@@ -77,7 +77,7 @@ def get_auction_date(auction_page):
 
 
 def get_reopen_info(announcement_page):
-    reopen_info = announcement_page.find_all(TD, attrs=ANNOUNCEMENT_TD_ATTRS)[-1].text
+    reopen_info = announcement_page.find_all(TD)[-1].text
     reopen_status = re.search(REOPEN_REGEX, reopen_info)
     if reopen_status:
         return reopen_status.group(0)
