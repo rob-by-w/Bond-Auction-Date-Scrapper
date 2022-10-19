@@ -16,6 +16,8 @@ def merge_pdf_auction(pdf_file):
         lambda security_type: int(re.search(ISSUE_YEAR_REGEX, security_type).group(1)))
     full_table = full_table.set_index(ISSUE_YEAR_COLUMN)
 
+    column_name_map = { col: col.lower().replace(" ","_") for col in column_name}
+    full_table.rename(columns=column_name_map, inplace=True)
     return full_table
 
 

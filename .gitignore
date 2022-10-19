@@ -110,6 +110,8 @@ ENV/
 env.bak/
 venv.bak/
 .idea
+.DS_Store
+*/.DS_Store
 
 # Spyder project settings
 .spyderproject
@@ -131,3 +133,38 @@ dmypy.json
 
 # Chromedriver
 chromedriver
+
+# Logs
+*/logs
+*/*.log
+*/npm-debug.log*
+*/yarn-debug.log*
+*/yarn-error.log*
+
+# Compiled binary addons (http://nodejs.org/api/addons.html)
+*/build/Release
+
+# Dependency directories
+*/node_modules/
+*/jspm_packages/
+
+# Distribution directories
+*/dist/
+
+# Typescript v1 declaration files
+*/typings/
+
+# Optional npm cache directory
+*/.npm
+
+# Optional eslint cache
+*/.eslintcache
+
+# Optional REPL history
+*/.node_repl_history
+
+# Output of 'npm pack'
+*/*.tgz
+
+# Yarn Integrity file
+*/.yarn-integrity
