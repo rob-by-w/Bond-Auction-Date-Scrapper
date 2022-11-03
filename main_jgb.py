@@ -2,7 +2,7 @@ from constants_jgb import *
 from http import HTTPStatus
 from utility import get_page_html
 from datetime import timezone, timedelta
-
+from dateutil.relativedelta import relativedelta
 
 class JgbAuctionInfo:
     def __init__(self, tenor):
@@ -97,7 +97,7 @@ def run():
 
         get_auction_date(response)
 
-        next_date = next_date.replace(month=next_date.month + 1)
+        next_date = next_date + relativedelta(months=1)
 
     return jgb_auction_date
 
